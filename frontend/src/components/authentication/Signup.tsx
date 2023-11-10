@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Button } from "@chakra-ui/button";
 import { useToast } from "@chakra-ui/react";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
@@ -20,13 +20,10 @@ const Signup = () => {
 
   interface PictureProps {
     type: string;
-    Files: FileList | null;
+    files: null;
   }
 
-  const postDetails = (
-    pics: PictureProps,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const postDetails = (files: PictureProps) => {
     setLoading(true);
     if (pic === undefined) {
       toast({
@@ -38,11 +35,12 @@ const Signup = () => {
       });
       return;
     }
-    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+    if (files.type === "image/jpeg" || files.type === "image/png") {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const data: any = new FormData();
-      data.append("file", pics);
+      data.append("file", files);
       data.append("upload_preset", "chat-app");
-      data.append("cloud_name", "piyushproj");
+      data.append("cloud_name", "fffamily");
       fetch("https://api.cloudinary.com/v1_1/fffamily/image/upload", {
         method: "post",
         body: data,
@@ -125,7 +123,9 @@ const Signup = () => {
           type="file"
           p={1.5}
           accept="image/*"
-          onChange={(e) => postDetails(e.target.files[0])}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            postDetails(e.target.files[0])
+          }
         />
       </FormControl>
       <Button
