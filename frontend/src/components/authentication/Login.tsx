@@ -10,10 +10,10 @@ const Login = () => {
   /* const toast = useToast(); */
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
-  const [confirmpassword, setConfirmpassword] = useState<string>();
-  const [pic, setPic] = useState<string>();
-  const [loading, setLoading] = useState<boolean>(false);
-  const [picLoading, setPicLoading] = useState<boolean>(false);
+  /*   const [confirmpassword, setConfirmpassword] = useState<string>(); */
+  /*  const [pic, setPic] = useState<string>(); */
+  /*  const [loading, setLoading] = useState<boolean>(false);
+  const [picLoading, setPicLoading] = useState<boolean>(false); */
 
   const handleClick = () => setShow(!show);
 
@@ -51,7 +51,7 @@ const Login = () => {
         width="100%"
         style={{ marginTop: 15 }}
         onClick={submitHandler}
-        isLoading={loading}
+        /*      isLoading={loading} */
       >
         Login
       </Button>
