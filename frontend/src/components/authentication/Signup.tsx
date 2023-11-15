@@ -4,11 +4,17 @@ import {
   InputGroup,
   InputRightElement,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { FormControl, FormLabel } from "@chakra-ui/react";
 
-const Signup = () => {
+interface FunctionProps {
+  handlerClick: () => void;
+  postDetail: (files: FileList | null) => void;
+}
+
+const Signup: React.FC<FunctionProps> = () => {
   const [show, setShow] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -16,10 +22,61 @@ const Signup = () => {
   const [password, setPassword] = useState<string>("");
   const [pic, setPic] = useState<string>("");
   const [picLoading, setPicLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const toast = useToast();
 
   const handlerClick = () => setShow(!show);
 
-  const postDetails = () => {};
+  interface PostProps {
+    type: string;
+    files: FileList | null;
+  }
+
+  const postDetails = (pics: PostProps) => {
+    setPicLoading(true);
+    if (pics === undefined) {
+      toast({
+        title: "Please Select an Image!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    console.log(pics);
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const data: any = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "chat-app");
+      data.append("cloud_name", "fffamily");
+      fetch("https://api.cloudinary.com/v1_1/fffamily/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPic(data.url.toString());
+          console.log(data.url.toString());
+          setPicLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setPicLoading(false);
+        });
+    } else {
+      toast({
+        title: "Please Select an Image!",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setPicLoading(false);
+      return;
+    }
+  };
 
   return (
     <VStack spacing="5px" color="black">
@@ -67,10 +124,19 @@ const Signup = () => {
           padding={1.5}
           accept="image/*"
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            postDetails(e.target.files[0])
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            postDetails(e.target.files ? e.target.files[0] : (null as any))
           }
         />
       </FormControl>
+      <Button
+        colorScheme="blue"
+        width="100%"
+        style={{ marginTop: 15 }}
+        isLoading={picLoading}
+      >
+        Sign Up
+      </Button>
     </VStack>
   );
 };
