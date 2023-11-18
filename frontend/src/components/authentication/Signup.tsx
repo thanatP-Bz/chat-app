@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from "react";
+import axios from "axios";
 import {
   Button,
   InputGroup,
@@ -8,13 +9,9 @@ import {
 } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
 import { FormControl, FormLabel } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
-interface FunctionProps {
-  handlerClick: () => void;
-  postDetail: (files: FileList | null) => void;
-}
-
-const Signup: React.FC<FunctionProps> = () => {
+const Signup = () => {
   const [show, setShow] = useState<boolean>(false);
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -24,12 +21,12 @@ const Signup: React.FC<FunctionProps> = () => {
   const [picLoading, setPicLoading] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
+  const navigate = useNavigate();
 
   const handlerClick = () => setShow(!show);
 
   interface PostProps {
     type: string;
-    files: FileList | null;
   }
 
   const postDetails = (pics: PostProps) => {
@@ -78,6 +75,76 @@ const Signup: React.FC<FunctionProps> = () => {
     }
   };
 
+  const submitHandler = async () => {
+    setPicLoading(true);
+    if (!name || !email || !password || !confirmpassword) {
+      toast({
+        title: "Please Fill all the Feilds",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      setPicLoading(false);
+      return;
+    }
+    if (password !== confirmpassword) {
+      toast({
+        title: "Passwords Do Not Match",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+      return;
+    }
+    console.log(name, email, password, pic);
+
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+
+      const { data } = await axios.post(
+        "http://localhost:5000/api/user/register",
+        {
+          name,
+          email,
+          password,
+          pic,
+        },
+        config
+      );
+      console.log(data);
+      toast({
+        title: "Registration Successful",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom",
+      });
+
+      localStorage.setItem("userInfo", JSON.stringify(data));
+
+      setPicLoading(false);
+      navigate("/chats");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast({
+          title: "Error Occured!",
+          description: error.response?.data.message,
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setLoading(false);
+      }
+    }
+  };
+
   return (
     <VStack spacing="5px" color="black">
       <FormControl id="first-name" isRequired>
@@ -112,7 +179,25 @@ const Signup: React.FC<FunctionProps> = () => {
             }
           />
           <InputRightElement width="4.5rem">
-            <Button onClick={handlerClick}>{show ? "Hide" : "Show"}</Button>
+            <Button h="1.75rem" size="sm" onClick={handlerClick}>
+              {show ? "Hide" : "Show"}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
+      </FormControl>
+
+      <FormControl id="password" isRequired>
+        <FormLabel>Confirm Password</FormLabel>
+        <InputGroup size="md">
+          <Input
+            type={show ? "text" : "password"}
+            placeholder="Confirm password"
+            onChange={(e) => setConfirmpassword(e.target.value)}
+          />
+          <InputRightElement width="4.5rem">
+            <Button h="1.75rem" size="sm" onClick={handlerClick}>
+              {show ? "Hide" : "Show"}
+            </Button>
           </InputRightElement>
         </InputGroup>
       </FormControl>
@@ -133,7 +218,8 @@ const Signup: React.FC<FunctionProps> = () => {
         colorScheme="blue"
         width="100%"
         style={{ marginTop: 15 }}
-        isLoading={picLoading}
+        isLoading={loading}
+        onClick={submitHandler}
       >
         Sign Up
       </Button>
