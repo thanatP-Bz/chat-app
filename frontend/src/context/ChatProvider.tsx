@@ -18,7 +18,7 @@ type Children = {
 };
 
 const ChatProvider = ({ children }: Children) => {
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<string | null>("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,4 +39,4 @@ export const ChatState = () => {
   return useContext(ChatContext);
 };
 
-export default ChatProvider;
+export { ChatProvider };
