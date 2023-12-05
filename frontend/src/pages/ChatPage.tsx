@@ -6,7 +6,6 @@ import ChatBox from "../components/ChatBox";
 
 const ChatPage = () => {
   const { user } = ChatState();
-
   return (
     <div className="container">
       {user && <SideDrawer />}
