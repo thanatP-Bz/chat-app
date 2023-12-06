@@ -12,6 +12,7 @@ type User = {
   name: string;
   pic: string;
   email: string;
+  token: string;
 };
 
 interface UserContextInterface {
@@ -24,6 +25,7 @@ const defaultState = {
     name: "",
     pic: "",
     email: "",
+    token: "",
   },
 } as UserContextInterface;
 
@@ -39,6 +41,7 @@ const ChatProvider = ({ children }: ChildrenProp) => {
     name: "",
     pic: "",
     email: "",
+    token: "",
   });
   const navigate = useNavigate();
 
