@@ -43,13 +43,20 @@ const ChatProvider = ({ children }: ChildrenProp) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userInfo = JSON.parse(localStorage?.getItem("userInfo") || "");
-    setUser(userInfo);
+    try {
+      const userInfoString = localStorage?.getItem("userInfo");
+      if (!userInfoString) {
+        navigate("/");
+        return;
+      }
 
-    if (!userInfo) {
+      const userInfo = JSON.parse(userInfoString);
+      setUser(userInfo);
+    } catch (error) {
+      console.error(`Error parsing user info JSON`, (error as Error).message);
       navigate("/");
     }
-  }, [navigate]);
+  }, [navigate, setUser]);
 
   return (
     <ChatContext.Provider value={{ user }}>{children}</ChatContext.Provider>
