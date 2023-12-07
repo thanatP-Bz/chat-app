@@ -1,18 +1,17 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { Box, Text } from "@chakra-ui/layout";
-import { ChatState } from "../../context/ChatProvider";
 
 interface UserProps {
   user: {
-    name: string;
-    pic: string;
-    email: string;
+    _id: "";
+    name: "";
+    pic: "";
+    email: "";
   };
-  handleFunction: () => string;
+  handleFunction: () => Promise<void>;
 }
 
-const UserListItem = ({ handleFunction }: UserProps) => {
-  const { user } = ChatState();
+const UserListItem = ({ user, handleFunction }: UserProps) => {
   return (
     <Box
       onClick={handleFunction}

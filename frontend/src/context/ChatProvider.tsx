@@ -2,6 +2,8 @@ import {
   createContext,
   useContext,
   useState,
+  Dispatch,
+  SetStateAction,
   useEffect,
   ReactNode,
 } from "react";
@@ -17,6 +19,11 @@ type User = {
 
 interface UserContextInterface {
   user: User;
+  setUser: Dispatch<SetStateAction<User>>;
+  selectedChat: User;
+  setSelectedChat: Dispatch<SetStateAction<User>>;
+  chats: User[];
+  setChats: Dispatch<SetStateAction<User[]>>;
 }
 
 const defaultState = {
@@ -27,7 +34,15 @@ const defaultState = {
     email: "",
     token: "",
   },
-} as UserContextInterface;
+  selectedChat: {
+    _id: "",
+    name: "",
+    pic: "",
+    email: "",
+    token: "",
+  },
+  chats: [],
+} as unknown as UserContextInterface;
 
 const ChatContext = createContext(defaultState);
 
@@ -43,6 +58,15 @@ const ChatProvider = ({ children }: ChildrenProp) => {
     email: "",
     token: "",
   });
+  const [selectedChat, setSelectedChat] = useState<User>({
+    _id: "",
+    name: "",
+    pic: "",
+    email: "",
+    token: "",
+  });
+  const [chats, setChats] = useState<User[]>([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,7 +86,11 @@ const ChatProvider = ({ children }: ChildrenProp) => {
   }, [navigate, setUser]);
 
   return (
-    <ChatContext.Provider value={{ user }}>{children}</ChatContext.Provider>
+    <ChatContext.Provider
+      value={{ user, setUser, selectedChat, setSelectedChat, chats, setChats }}
+    >
+      {children}
+    </ChatContext.Provider>
   );
 };
 
