@@ -73,13 +73,12 @@ const SideDrawer = () => {
       };
 
       const { data } = await axios.get(
-        `http://localhost:5000/api/user?search=${search}`,
+        `http://localhost:5000/api/user/?search=${search}`,
         config
       );
 
       setLoading(false);
       setSearchResult(data);
-      console.log(searchResult);
     } catch (error) {
       toast({
         title: "Error Occured!",

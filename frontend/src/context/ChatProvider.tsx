@@ -9,7 +9,18 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 
-type User = {
+type IUserMember = {
+  _id: string;
+  name: string;
+  email: string;
+  pic: string;
+  isAdmin: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+};
+
+type IUser = {
   _id: string;
   name: string;
   pic: string;
@@ -17,13 +28,24 @@ type User = {
   token: string;
 };
 
+type IUserChat = {
+  _id: string;
+  name: string;
+  pic: string;
+  email: string;
+  token: string;
+  isGroupChat: boolean;
+  chatName: string;
+  users: IUserMember[];
+};
+
 interface UserContextInterface {
-  user: User;
-  setUser: Dispatch<SetStateAction<User>>;
-  selectedChat: User;
-  setSelectedChat: Dispatch<SetStateAction<User>>;
-  chats: User[];
-  setChats: Dispatch<SetStateAction<User[]>>;
+  user: IUser;
+  setUser: Dispatch<SetStateAction<IUser>>;
+  selectedChat: IUser;
+  setSelectedChat: Dispatch<SetStateAction<IUser>>;
+  chats: IUserChat[];
+  setChats: Dispatch<SetStateAction<IUserChat[]>>;
 }
 
 const defaultState = {
@@ -51,21 +73,21 @@ type ChildrenProp = {
 };
 
 const ChatProvider = ({ children }: ChildrenProp) => {
-  const [user, setUser] = useState<User>({
+  const [user, setUser] = useState<IUser>({
     _id: "",
     name: "",
     pic: "",
     email: "",
     token: "",
   });
-  const [selectedChat, setSelectedChat] = useState<User>({
+  const [selectedChat, setSelectedChat] = useState<IUser>({
     _id: "",
     name: "",
     pic: "",
     email: "",
     token: "",
   });
-  const [chats, setChats] = useState<User[]>([]);
+  const [chats, setChats] = useState<IUserChat[]>([]);
 
   const navigate = useNavigate();
 
