@@ -7,8 +7,33 @@ import { AddIcon } from "@chakra-ui/icons";
 import ChatLoading from "./ChatLoading";
 import { getSender } from "../config/ChatLogics";
 
+type UserInfo = {
+  _id: string;
+  name: string;
+  email: string;
+  pic: string;
+  isAdmin: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number | string;
+};
+
+/* interface UserInfoProps {
+  loggedUser: UserInfo[]
+  setLoggedUser: React.Dispatch<React.SetStateAction<UserInfo>>
+} */
+
 const MyChats = () => {
-  const [loggedUser, setLoggedUser] = useState();
+  const [loggedUser, setLoggedUser] = useState<UserInfo>({
+    _id: "",
+    name: "",
+    email: "",
+    pic: "",
+    isAdmin: false,
+    createdAt: "",
+    updatedAt: "",
+    __v: "",
+  });
   const { user, selectedChat, setSelectedChat, chats, setChats } = ChatState();
   const toast = useToast();
 
