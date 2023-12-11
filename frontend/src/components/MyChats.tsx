@@ -45,7 +45,7 @@ const MyChats = () => {
         "http://localhost:5000/api/chat",
         config
       );
-      console.log(data);
+
       setChats(data);
     } catch (error) {
       toast({
@@ -123,6 +123,7 @@ const MyChats = () => {
                     ? getSender(loggedUser, chat.users)
                     : chat.chatName}
                 </Text>
+                <div></div>
                 {/*   {chat.latestMessage && (
                   <Text fontSize="xs">
                   <b>{chat.latestMessage.sender.name} : </b>

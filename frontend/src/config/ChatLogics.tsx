@@ -13,5 +13,7 @@ export const getSender = (
     __v: number;
   }[]
 ) => {
-  return users[0]?._id === loggedUser?._id ? users[1].name : users[0].name;
+  return users[0]?._id === loggedUser?._id
+    ? console.log("yes")
+    : console.log("no");
 };
