@@ -10,7 +10,6 @@ import {
   MenuItem,
   MenuDivider,
   Input,
-  Spinner,
 } from "@chakra-ui/react";
 import {
   Drawer,
@@ -20,6 +19,7 @@ import {
   DrawerOverlay,
 } from "@chakra-ui/modal";
 import { Button } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/spinner";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { Avatar } from "@chakra-ui/avatar";
@@ -92,8 +92,6 @@ const SideDrawer = () => {
   };
 
   const accessChat = async (userId: string) => {
-    console.log(userId);
-
     try {
       setLoadingChat(true);
       const config = {
@@ -108,8 +106,7 @@ const SideDrawer = () => {
         config
       );
 
-      if (!chats.find((c: { _id: string }) => c._id === data._id))
-        setChats([data, ...chats]);
+      if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);
       setLoadingChat(false);
       onClose();
