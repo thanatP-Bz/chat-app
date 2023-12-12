@@ -1,8 +1,17 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { Box, Text } from "@chakra-ui/layout";
-import { UserAvatarProps } from "../../interface/UserAvatarProps";
 
-const UserListItem = ({ user, handleFunction }: UserAvatarProps) => {
+interface UserProps {
+  user: {
+    _id: string;
+    name: string;
+    pic: string;
+    email: string;
+  };
+  handleFunction: () => Promise<void>;
+}
+
+const UserListItem = ({ user, handleFunction }: UserProps) => {
   return (
     <Box
       onClick={handleFunction}

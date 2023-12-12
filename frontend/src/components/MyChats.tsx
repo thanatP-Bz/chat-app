@@ -6,20 +6,10 @@ import axios from "axios";
 import { AddIcon } from "@chakra-ui/icons";
 import ChatLoading from "./ChatLoading";
 import { getSender } from "../config/ChatLogics";
-
-export type UserInfo = {
-  _id: string;
-  name: string;
-  email: string;
-  pic: string;
-  isAdmin: boolean;
-  createdAt: string;
-  updatedAt: string;
-  __v: number | string;
-};
-
+import GroupChatModal from "./micellenous/GroupChatModal";
+import { UserProps } from "../interface/UserProps";
 const MyChats = () => {
-  const [loggedUser, setLoggedUser] = useState<UserInfo>({
+  const [loggedUser, setLoggedUser] = useState<UserProps>({
     _id: "",
     name: "",
     email: "",

@@ -28,13 +28,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import ChatLoading from "../ChatLoading";
 import UserListItem from "../User Avatars/UserListItem";
-
-interface User {
-  _id: "";
-  name: "";
-  pic: "";
-  email: "";
-}
+import { UserProps } from "../../interface/UserProps";
 
 const SideDrawer = () => {
   const [search, setSearch] = useState<string>("");
@@ -191,7 +185,7 @@ const SideDrawer = () => {
             {loading ? (
               <ChatLoading />
             ) : (
-              searchResult?.map((user: User) => (
+              searchResult?.map((user: UserProps) => (
                 <UserListItem
                   key={user._id}
                   user={user}
