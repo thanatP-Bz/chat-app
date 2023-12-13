@@ -86,7 +86,7 @@ const GroupChatModal = ({ children }: ChildrenProp) => {
     setSelectedUsers(selectedUsers.filter((sel) => sel._id !== delUser._id));
   };
 
-  /*   const handleSubmit = async () => {
+  const handleSubmit = async () => {
     if (!groupChatName || !selectedUsers) {
       toast({
         title: "Please fill all the feilds",
@@ -105,7 +105,7 @@ const GroupChatModal = ({ children }: ChildrenProp) => {
         },
       };
       const { data } = await axios.post(
-        `/api/chat/group`,
+        `http://localhost:5000/api/chat/group`,
         {
           name: groupChatName,
           users: JSON.stringify(selectedUsers.map((u) => u._id)),
@@ -121,7 +121,8 @@ const GroupChatModal = ({ children }: ChildrenProp) => {
         isClosable: true,
         position: "bottom",
       });
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       toast({
         title: "Failed to Create the Chat!",
         description: error.response.data,
@@ -131,7 +132,7 @@ const GroupChatModal = ({ children }: ChildrenProp) => {
         position: "bottom",
       });
     }
-  }; */
+  };
 
   return (
     <>
@@ -189,7 +190,7 @@ const GroupChatModal = ({ children }: ChildrenProp) => {
             )}
           </ModalBody>
           <ModalFooter>
-            <Button /* onClick={handleSubmit} */ colorScheme="blue">
+            <Button onClick={handleSubmit} colorScheme="blue">
               Create Chat
             </Button>
           </ModalFooter>

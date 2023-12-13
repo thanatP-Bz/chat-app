@@ -18,7 +18,8 @@ const Signup = () => {
   const [confirmpassword, setConfirmpassword] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [pic, setPic] = useState<string>("");
-  const [picLoading, setPicLoading] = useState<boolean>(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [, setPicLoading] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const toast = useToast();
   const navigate = useNavigate();
@@ -98,7 +99,6 @@ const Signup = () => {
       });
       return;
     }
-    console.log(name, email, password, pic);
 
     try {
       const config = {
@@ -108,7 +108,7 @@ const Signup = () => {
       };
 
       const { data } = await axios.post(
-        "http://localhost:5000/api/user/login",
+        "http://localhost:5000/api/user/signup",
         {
           name,
           email,

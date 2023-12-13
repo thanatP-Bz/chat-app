@@ -38,6 +38,8 @@ const SideDrawer = () => {
   const navigate = useNavigate();
   const toast = useToast();
 
+  console.log(searchResult);
+
   const { user, setSelectedChat, chats, setChats } = ChatState();
 
   const logoutHandler = () => {
@@ -67,10 +69,10 @@ const SideDrawer = () => {
       };
 
       const { data } = await axios.get(
-        `http://localhost:5000/api/user/?search=${search}`,
+        `http://localhost:5000/api/user?search=${search}`,
         config
       );
-
+      console.log(data);
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -178,7 +180,9 @@ const SideDrawer = () => {
                 placeholder="Search by name or email"
                 mr={2}
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setSearch(e.target.value)
+                }
               />
               <Button onClick={handleSearch}>Go</Button>
             </Box>
