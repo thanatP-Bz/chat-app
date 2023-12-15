@@ -8,7 +8,12 @@ import ChatLoading from "./ChatLoading";
 import { getSender } from "../config/ChatLogics";
 import GroupChatModal from "./micellenous/GroupChatModal";
 import { UserProps } from "../interface/UserProps";
-const MyChats = () => {
+
+interface FetchProps {
+  fetchAgain: boolean;
+}
+
+const MyChats = ({ fetchAgain }: FetchProps) => {
   const [loggedUser, setLoggedUser] = useState<UserProps>({
     _id: "",
     name: "",
@@ -54,7 +59,8 @@ const MyChats = () => {
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo") || ""));
     fetchChats();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchAgain]);
 
   return (
     <Box

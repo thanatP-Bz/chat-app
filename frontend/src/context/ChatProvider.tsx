@@ -20,12 +20,19 @@ type IUserMember = {
   __v: number;
 };
 
-type IUser = {
+export type IUser = {
   _id: string;
   name: string;
   pic: string;
   email: string;
   token: string;
+  isGroupChat: boolean;
+  chatName: string;
+  isAdmin: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  users: IUserMember[];
 };
 
 type IUserChat = {
@@ -36,14 +43,18 @@ type IUserChat = {
   token: string;
   isGroupChat: boolean;
   chatName: string;
+  isAdmin: boolean;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
   users: IUserMember[];
 };
 
 interface UserContextInterface {
   user: IUser;
   setUser: Dispatch<SetStateAction<IUser>>;
-  selectedChat: IUser;
-  setSelectedChat: Dispatch<SetStateAction<IUser>>;
+  selectedChat: "" | IUser;
+  setSelectedChat: Dispatch<SetStateAction<"" | IUser>>;
   chats: IUserChat[];
   setChats: Dispatch<SetStateAction<IUserChat[]>>;
 }
@@ -56,13 +67,7 @@ const defaultState = {
     email: "",
     token: "",
   },
-  selectedChat: {
-    _id: "",
-    name: "",
-    pic: "",
-    email: "",
-    token: "",
-  },
+  selectedChat: {},
   chats: [],
 } as unknown as UserContextInterface;
 
@@ -79,14 +84,15 @@ const ChatProvider = ({ children }: ChildrenProp) => {
     pic: "",
     email: "",
     token: "",
+    isGroupChat: false,
+    chatName: "",
+    isAdmin: false,
+    createdAt: "",
+    updatedAt: "",
+    __v: 0,
+    users: [],
   });
-  const [selectedChat, setSelectedChat] = useState<IUser>({
-    _id: "",
-    name: "",
-    pic: "",
-    email: "",
-    token: "",
-  });
+  const [selectedChat, setSelectedChat] = useState<"" | IUser>("");
   const [chats, setChats] = useState<IUserChat[]>([]);
 
   const navigate = useNavigate();
