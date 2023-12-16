@@ -38,8 +38,6 @@ const SideDrawer = () => {
   const navigate = useNavigate();
   const toast = useToast();
 
-  console.log(searchResult);
-
   const { user, setSelectedChat, chats, setChats } = ChatState();
 
   const logoutHandler = () => {
@@ -52,7 +50,7 @@ const SideDrawer = () => {
       toast({
         title: "Please Enter something in search",
         status: "warning",
-        duration: 4000,
+        duration: 5000,
         isClosable: true,
         position: "top-left",
       });
@@ -72,7 +70,7 @@ const SideDrawer = () => {
         `http://localhost:5000/api/user?search=${search}`,
         config
       );
-      console.log(data);
+
       setLoading(false);
       setSearchResult(data);
     } catch (error) {
@@ -80,9 +78,9 @@ const SideDrawer = () => {
         title: "Error Occured!",
         description: "Failed to Load the Search Results",
         status: "error",
-        duration: 4000,
+        duration: 5000,
         isClosable: true,
-        position: "bottom-left",
+        position: "top-left",
       });
     }
   };
