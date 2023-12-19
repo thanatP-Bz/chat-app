@@ -27,40 +27,40 @@ const MyChats = ({ fetchAgain }: FetchProps) => {
   const { user, selectedChat, setSelectedChat, chats, setChats } = ChatState();
   const toast = useToast();
 
-  const fetchChats = async () => {
-    // console.log(user._id);
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
-      const { data } = await axios.get(
-        "http://localhost:5000/api/chat",
-        config
-      );
-
-      console.log(data);
-
-      setChats(data);
-    } catch (error) {
-      toast({
-        title: "Error Occured!",
-        description: "Failed to Load the chats",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-left",
-      });
-    }
-  };
-
   useEffect(() => {
+    const fetchChats = async () => {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        };
+
+        const { data } = await axios.get(
+          "http://localhost:5000/api/chat",
+          config
+        );
+
+        console.log(data);
+
+        setChats(data);
+      } catch (error) {
+        console.error(error);
+
+        toast({
+          title: "Error Occurred!",
+          description: "Failed to load the chats.",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+      }
+    };
+
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo") || ""));
-    fetchChats();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchAgain]);
+    fetchChats(); // Call the fetchChats function immediately
+  }, [setChats, toast, user.token, fetchAgain]);
 
   return (
     <Box
