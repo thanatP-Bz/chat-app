@@ -3,7 +3,8 @@ import { ChatState } from "../context/ChatProvider";
 import { Box, Text } from "@chakra-ui/layout";
 import { IconButton } from "@chakra-ui/button";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { getSender } from "../config/ChatLogics";
+import { getSender, getSenderFull } from "../config/ChatLogics";
+import ProfileModal from "./micellenous/ProfileModal";
 
 interface FetchProps {
   fetchAgain: boolean;
@@ -35,7 +36,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
               aria-label={""}
             />
             {!selectedChat.isGroupChat ? (
-              <>{getSender(user, selectedChat.users)}</>
+              <>
+                {getSender(user, selectedChat.users)}
+                <ProfileModal user={getSenderFull(user, selectedChat.users)} />
+              </>
             ) : (
               <>
                 {selectedChat.chatName.toUpperCase()}

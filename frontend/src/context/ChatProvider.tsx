@@ -9,7 +9,7 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 
-type IUserMember = {
+export type IUserMember = {
   _id: string;
   name: string;
   email: string;
@@ -33,6 +33,7 @@ export type IUser = {
   updatedAt: string;
   __v: number;
   users: IUserMember[];
+  children?: ReactNode;
 };
 
 type IUserChat = {

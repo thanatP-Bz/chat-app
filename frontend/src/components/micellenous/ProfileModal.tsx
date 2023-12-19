@@ -21,7 +21,7 @@ interface UserProps {
     pic: string;
     email: string;
   };
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const ProfileModal = ({ user, children }: UserProps) => {
