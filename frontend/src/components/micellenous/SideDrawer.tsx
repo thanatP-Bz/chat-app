@@ -71,8 +71,20 @@ const SideDrawer = () => {
         config
       );
 
-      setLoading(false);
-      setSearchResult(data);
+      // Check if user is not found
+      if (data.length === 0) {
+        toast({
+          title: "User Not Found",
+          status: "info",
+          duration: 5000,
+          isClosable: true,
+          position: "top-left",
+        });
+        setLoading(false);
+      } else {
+        setSearchResult(data);
+        setLoading(false);
+      }
     } catch (error) {
       toast({
         title: "Error Occured!",
