@@ -41,8 +41,6 @@ const MyChats = ({ fetchAgain }: FetchProps) => {
           config
         );
 
-        console.log(data);
-
         setChats(data);
       } catch (error) {
         console.error(error);
@@ -60,7 +58,7 @@ const MyChats = ({ fetchAgain }: FetchProps) => {
 
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo") || ""));
     fetchChats(); // Call the fetchChats function immediately
-  }, [setChats, toast, user.token, fetchAgain]);
+  }, [setChats, fetchAgain, user.token, toast]);
 
   return (
     <Box

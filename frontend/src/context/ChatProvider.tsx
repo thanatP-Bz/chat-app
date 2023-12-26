@@ -13,7 +13,10 @@ export type IUserMember = {
   _id: string;
   name: string;
   email: string;
+  token: string;
   pic: string;
+  isGroupChat: boolean;
+  chatName: string;
   isAdmin: boolean;
   createdAt: string;
   updatedAt: string;
@@ -33,6 +36,7 @@ export type IUser = {
   updatedAt: string;
   __v: number;
   users: IUserMember[];
+  groupAdmin: IUserMember;
   children?: ReactNode;
 };
 
@@ -49,6 +53,7 @@ type IUserChat = {
   updatedAt: string;
   __v: number;
   users: IUserMember[];
+  groupAdmin: IUserMember;
 };
 
 interface UserContextInterface {
@@ -92,6 +97,19 @@ const ChatProvider = ({ children }: ChildrenProp) => {
     updatedAt: "",
     __v: 0,
     users: [],
+    groupAdmin: {
+      _id: "",
+      name: "",
+      pic: "",
+      email: "",
+      token: "",
+      isGroupChat: false,
+      chatName: "",
+      isAdmin: false,
+      createdAt: "",
+      updatedAt: "",
+      __v: 0,
+    },
   });
   const [selectedChat, setSelectedChat] = useState<"" | IUser>("");
   const [chats, setChats] = useState<IUserChat[]>([]);

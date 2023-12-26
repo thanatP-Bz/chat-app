@@ -5,10 +5,10 @@ import { IconButton } from "@chakra-ui/button";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { getSender, getSenderFull } from "../config/ChatLogics";
 import ProfileModal from "./micellenous/ProfileModal";
+import UpdateGroupChatModal from "./micellenous/UpdateGroupChatModal";
 
 interface FetchProps {
   fetchAgain: boolean;
-  /* setSelectedChat: React.Dispatch<React.SetStateAction<"">; */
   setFetchAgain: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -43,14 +43,28 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
             ) : (
               <>
                 {selectedChat.chatName.toUpperCase()}
-                {/*   <UpdateGroupChatModal
-                    fetchMessages={fetchMessages}
+                {
+                  <UpdateGroupChatModal
                     fetchAgain={fetchAgain}
                     setFetchAgain={setFetchAgain}
-                  /> */}
+                  />
+                }
               </>
             )}
           </Text>
+          <Box
+            display="flex"
+            flexDir="column"
+            justifyContent="flex-end"
+            p={3}
+            bg="#E8E8E8"
+            w="100%"
+            h="100%"
+            borderRadius="lg"
+            overflowY="hidden"
+          >
+            {/* message here */}
+          </Box>
         </>
       ) : (
         <Box
