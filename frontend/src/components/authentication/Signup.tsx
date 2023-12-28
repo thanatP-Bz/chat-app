@@ -42,7 +42,7 @@ const Signup = () => {
       });
       return;
     }
-    console.log(pics);
+
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const data: any = new FormData();
@@ -56,7 +56,6 @@ const Signup = () => {
         .then((res) => res.json())
         .then((data) => {
           setPic(data.url.toString());
-          console.log(data.url.toString());
           setPicLoading(false);
         })
         .catch((err) => {
@@ -117,7 +116,7 @@ const Signup = () => {
         },
         config
       );
-      console.log(data);
+
       toast({
         title: "Registration Successful",
         status: "success",

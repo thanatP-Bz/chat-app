@@ -27,9 +27,14 @@ import { UserProps } from "../../interface/UserProps";
 interface FetchProps {
   fetchAgain: boolean;
   setFetchAgain: React.Dispatch<React.SetStateAction<boolean>>;
+  fetchMessages: () => Promise<void>;
 }
 
-const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }: FetchProps) => {
+const UpdateGroupChatModal = ({
+  fetchAgain,
+  setFetchAgain,
+  fetchMessages,
+}: FetchProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [groupChatName, setGroupChatName] = useState<string>("");
   const [search, setSearch] = useState<string>("");
@@ -96,6 +101,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain }: FetchProps) => {
       // setSelectedChat("");
       setSelectedChat(data);
       setFetchAgain(!fetchAgain);
+      fetchMessages();
       setRenameLoading(false);
     } catch (error) {
       toast({
