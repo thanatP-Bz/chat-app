@@ -11,6 +11,9 @@ import { FormControl, Input, Spinner, useToast } from "@chakra-ui/react";
 import { MessageProps } from "../interface/MessageProps";
 import "../index.css";
 import ScrollableChat from "./ScrollableChat";
+import io, { Socket } from "socket.io-client";
+const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
+let socket: Socket;
 
 interface FetchProps {
   fetchAgain: boolean;
@@ -49,6 +52,19 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
       preserveAspectRatio: "xMidYMid slice",
     }, */
   };
+
+  useEffect(() => {
+    try {
+      socket = io(ENDPOINT);
+    } catch (error) {
+      console.error("Socket connection error:", error);
+    }
+
+    return () => {
+      // Clean up the socket connection when the component unmounts
+      socket.disconnect();
+    };
+  }, []);
 
   const fetchMessages = async () => {
     if (!selectedChat) return;
