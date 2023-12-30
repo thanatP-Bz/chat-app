@@ -122,25 +122,24 @@ const Signup = () => {
         status: "success",
         duration: 5000,
         isClosable: true,
-        position: "bottom",
+        position: "top",
       });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
 
       setPicLoading(false);
       navigate("/chats");
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        toast({
-          title: "Error Occured!",
-          description: error.response?.data.message,
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-          position: "bottom",
-        });
-        setLoading(false);
-      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      toast({
+        title: "Error Occured!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "top",
+      });
+      setLoading(false);
     }
   };
 

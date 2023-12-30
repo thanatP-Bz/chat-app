@@ -60,10 +60,11 @@ const Login = () => {
       setLoading(false);
       navigate("/chats");
     } catch (error) {
-      if (axios.isAxiosError(error)) {
+      if (error) {
         toast({
           title: "Error Occured!",
-          description: error.response?.data.message,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          description: (error as any).response.data.message,
           status: "error",
           duration: 5000,
           isClosable: true,

@@ -75,7 +75,7 @@ const SideDrawer = () => {
       if (data.length === 0) {
         toast({
           title: "User Not Found",
-          status: "info",
+          status: "error",
           duration: 5000,
           isClosable: true,
           position: "top-left",
