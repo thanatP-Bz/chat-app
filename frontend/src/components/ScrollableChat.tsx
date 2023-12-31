@@ -16,7 +16,6 @@ interface IMessagesProps {
 const ScrollableChat = ({ messages }: IMessagesProps) => {
   const { user } = ChatState();
 
-  console.log(messages);
   return (
     <ScrollableFeed>
       {messages &&
