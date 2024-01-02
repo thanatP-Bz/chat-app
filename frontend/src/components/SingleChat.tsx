@@ -252,7 +252,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
               mt={3}
             >
               {istyping ? (
-                <div style={{ width: 50 }}>
+                <div style={{ width: 50, height: 30 }}>
                   <Lottie
                     animationData={animationData}
                     width={30}
