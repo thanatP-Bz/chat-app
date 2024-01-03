@@ -9,6 +9,33 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 
+interface IUserMessage {
+  _id: string;
+  name: string;
+  email: string;
+  pic: string;
+}
+
+export type IMessage = {
+  sender: {
+    _id: string;
+    name: string;
+    pic: string;
+  };
+  content: string;
+  chat: {
+    _id: string;
+    chatName: string;
+    isGroupChat: boolean;
+    users: IUserMessage[];
+    latestMessage: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+  };
+  _id: string;
+};
+
 export type IUserMember = {
   _id: string;
   name: string;
@@ -63,6 +90,8 @@ interface UserContextInterface {
   setSelectedChat: Dispatch<SetStateAction<"" | IUser>>;
   chats: IUserChat[];
   setChats: Dispatch<SetStateAction<IUserChat[]>>;
+  notification: IMessage[];
+  setNotification: Dispatch<SetStateAction<IMessage[]>>;
 }
 
 const defaultState = {
@@ -113,7 +142,7 @@ const ChatProvider = ({ children }: ChildrenProp) => {
   });
   const [selectedChat, setSelectedChat] = useState<"" | IUser>("");
   const [chats, setChats] = useState<IUserChat[]>([]);
-  const [notification, setNotification] = useState([]);
+  const [notification, setNotification] = useState<IMessage[]>([]);
 
   const navigate = useNavigate();
 
@@ -143,6 +172,7 @@ const ChatProvider = ({ children }: ChildrenProp) => {
         chats,
         setChats,
         notification,
+        setNotification,
       }}
     >
       {children}

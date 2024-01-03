@@ -29,6 +29,7 @@ import { useToast } from "@chakra-ui/react";
 import ChatLoading from "../ChatLoading";
 import UserListItem from "../User Avatars/UserListItem";
 import { UserProps } from "../../interface/UserProps";
+import { getSender } from "../../config/ChatLogics";
 
 const SideDrawer = () => {
   const [search, setSearch] = useState<string>("");
@@ -38,7 +39,14 @@ const SideDrawer = () => {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const { user, setSelectedChat, chats, setChats } = ChatState();
+  const {
+    user,
+    setSelectedChat,
+    chats,
+    setChats,
+    notification,
+    setNotification,
+  } = ChatState();
 
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");
@@ -157,7 +165,23 @@ const SideDrawer = () => {
           <Menu>
             <MenuButton p={1}>
               <BellIcon fontSize="2xl" m={1} />
-              {/* <MenuList></MenuList> */}
+              <MenuList pl={2}>
+                {/*                {!notification.length && "No New Messages"} */}
+
+                {/*   {notification.map((notif) => (
+                  <MenuItem
+                    key={notif._id}
+                    onClick={() => {
+                      setSelectedChat(notif.chat);
+                      setNotification(notification.filter((n) => n !== notif));
+                    }}
+                  >
+                    {notif.chat.isGroupChat
+                      ? `New Message in ${notif.chat.chatName}`
+                      : `New Message from ${getSender(user, notif.chat.users)}`}
+                  </MenuItem>
+                ))} */}
+              </MenuList>
             </MenuButton>
           </Menu>
           <Menu>
