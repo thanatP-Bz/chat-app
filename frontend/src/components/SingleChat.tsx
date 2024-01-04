@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { ChatState, IMessage, IUser } from "../context/ChatProvider";
+import { ChatState, IUser } from "../context/ChatProvider";
 import { Box, Text } from "@chakra-ui/layout";
 import { IconButton } from "@chakra-ui/button";
 import { ArrowBackIcon } from "@chakra-ui/icons";
@@ -69,7 +69,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
       setLoading(false);
 
       socket.emit("join chat", selectedChat._id);
-      /* socket.emit("join chat", selectedChat._id); */
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -94,23 +93,23 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
   useEffect(() => {
     fetchMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    selectedChatCompare = selectedChat;
+    selectedChatCompare = selectedChat && selectedChat;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChat]);
 
-  console.log(notification);
+  console.log(messages);
 
   useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved: MessageProps) => {
-      console.log(newMessageRecieved);
+    socket.on("message recieved", (newMessageRecieved) => {
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== newMessageRecieved.chat._id
       ) {
-        if (!notification.includes(newMessageRecieved)) {
+        /* if (!notification.includes(newMessageRecieved)) {
           setNotification([newMessageRecieved, ...notification]);
           setFetchAgain(!fetchAgain);
-        }
+        } */
+        console.log("get notification");
       } else {
         setMessages([...messages, newMessageRecieved]);
       }
