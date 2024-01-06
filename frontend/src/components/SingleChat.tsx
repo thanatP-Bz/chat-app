@@ -24,21 +24,7 @@ interface FetchProps {
 }
 
 const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
-  const [messages, setMessages] = useState<MessageProps[]>([
-    {
-      content: "",
-      _id: "",
-      sender: {
-        _id: "",
-        name: "",
-        email: "",
-        pic: "",
-      },
-      createAt: "",
-      updatedAt: "",
-      __v: 0,
-    },
-  ]);
+  const [messages, setMessages] = useState<MessageProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState<string>("");
   const [socketConnected, setSocketConnected] = useState(false);
@@ -93,22 +79,22 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
   useEffect(() => {
     fetchMessages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    selectedChatCompare = selectedChat && selectedChat;
+    selectedChatCompare = selectedChat;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChat]);
 
-  console.log(messages);
-
   useEffect(() => {
-    socket.on("message recieved", (newMessageRecieved) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    socket.on("message recieved", (newMessageRecieved: MessageProps) => {
+      console.log(newMessageRecieved);
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== newMessageRecieved.chat._id
       ) {
-        /* if (!notification.includes(newMessageRecieved)) {
+        if (!notification.includes(newMessageRecieved)) {
           setNotification([newMessageRecieved, ...notification]);
           setFetchAgain(!fetchAgain);
-        } */
+        }
         console.log("get notification");
       } else {
         setMessages([...messages, newMessageRecieved]);
@@ -132,7 +118,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
           "http://localhost:5000/api/message",
           {
             content: newMessage,
-            chatId: selectedChat,
+            chatId: selectedChat && selectedChat,
           },
           config
         );
