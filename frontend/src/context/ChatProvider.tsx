@@ -8,7 +8,6 @@ import {
   ReactNode,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { MessageProps } from "../interface/MessageProps";
 import { IUserProps } from "../interface/IUserProps";
 import { IUserChatProps } from "../interface/IUserChatProps";
 
@@ -19,8 +18,8 @@ interface UserContextInterface {
   setSelectedChat: Dispatch<SetStateAction<"" | IUserProps>>;
   chats: IUserChatProps[];
   setChats: Dispatch<SetStateAction<IUserChatProps[]>>;
-  notification: MessageProps[];
-  setNotification: Dispatch<SetStateAction<MessageProps[]>>;
+  notification: IUserProps[];
+  setNotification: Dispatch<SetStateAction<IUserProps[]>>;
 }
 
 const defaultState = {
@@ -80,11 +79,26 @@ const ChatProvider = ({ children }: ChildrenProp) => {
       isGroupChat: false,
       createAt: "",
       updatedAt: "",
+      users: [
+        {
+          _id: "",
+          name: "",
+          email: "",
+          token: "",
+          pic: "",
+          isGroupChat: false,
+          chatName: "",
+          isAdmin: false,
+          createdAt: "",
+          updatedAt: "",
+          __v: 0,
+        },
+      ],
     },
   });
+  const [notification, setNotification] = useState<IUserProps[]>([]);
   const [selectedChat, setSelectedChat] = useState<"" | IUserProps>("");
   const [chats, setChats] = useState<IUserChatProps[]>([]);
-  const [notification, setNotification] = useState<MessageProps[]>([]);
 
   const navigate = useNavigate();
 

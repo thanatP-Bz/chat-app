@@ -38,6 +38,7 @@ export interface IUserProps {
     isGroupChat: boolean;
     createAt: string;
     updatedAt: string;
+    users: IUserMember[];
   };
   users: IUserMember[];
   groupAdmin: IUserMember;
