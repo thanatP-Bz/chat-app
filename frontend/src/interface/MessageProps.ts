@@ -3,6 +3,10 @@ export interface MessageUsersProps {
   name: string;
   email: string;
   pic: string;
+  chatName: string;
+  isGroupChat: boolean;
+  createAt: string;
+  updatedAt: string;
 }
 
 export interface MessageProps {
@@ -18,8 +22,18 @@ export interface MessageProps {
     isGroupChat: boolean;
     createAt: string;
     updatedAt: string;
+    users: {
+      _id: string;
+      name: string;
+      email: string;
+      pic: string;
+      chatName: string;
+      isGroupChat: boolean;
+      createAt: string;
+      updatedAt: string;
+    };
   };
-  users: MessageProps[];
+
   _id: string;
   createAt: string;
   updatedAt: string;

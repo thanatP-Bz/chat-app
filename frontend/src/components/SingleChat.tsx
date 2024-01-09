@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { ChatState, IUser } from "../context/ChatProvider";
+import { ChatState } from "../context/ChatProvider";
+import { IUserProps } from "../interface/IUserProps";
 import { Box, Text } from "@chakra-ui/layout";
 import { IconButton } from "@chakra-ui/button";
 import { ArrowBackIcon } from "@chakra-ui/icons";
@@ -16,7 +17,7 @@ import io, { Socket } from "socket.io-client";
 import Lottie from "lottie-react";
 const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-let socket: Socket, selectedChatCompare: "" | IUser;
+let socket: Socket, selectedChatCompare: "" | IUserProps;
 
 interface FetchProps {
   fetchAgain: boolean;
@@ -86,7 +87,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     socket.on("message recieved", (newMessageRecieved: MessageProps) => {
-      console.log(newMessageRecieved);
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== newMessageRecieved.chat._id
@@ -94,8 +94,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
         if (!notification.includes(newMessageRecieved)) {
           setNotification([newMessageRecieved, ...notification]);
           setFetchAgain(!fetchAgain);
+          console.log("notification alert!");
         }
-        console.log("get notification");
       } else {
         setMessages([...messages, newMessageRecieved]);
       }
@@ -178,7 +178,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
             alignItems="center"
           >
             <IconButton
-              display={{ base: "flex", md: "none" }}
+              display={{ base: "flex" }}
               icon={<ArrowBackIcon />}
               onClick={() => setSelectedChat("")}
               aria-label={""}
@@ -191,6 +191,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
             ) : (
               <>
                 {selectedChat.chatName.toUpperCase()}
+
                 {
                   <UpdateGroupChatModal
                     fetchAgain={fetchAgain}

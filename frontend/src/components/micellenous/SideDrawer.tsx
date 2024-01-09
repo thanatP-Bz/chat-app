@@ -168,7 +168,7 @@ const SideDrawer = () => {
               <MenuList pl={2}>
                 {/*                {!notification.length && "No New Messages"} */}
 
-                {/*   {notification.map((notif) => (
+                {notification.map((notif) => (
                   <MenuItem
                     key={notif._id}
                     onClick={() => {
@@ -180,7 +180,7 @@ const SideDrawer = () => {
                       ? `New Message in ${notif.chat.chatName}`
                       : `New Message from ${getSender(user, notif.chat.users)}`}
                   </MenuItem>
-                ))} */}
+                ))}
               </MenuList>
             </MenuButton>
           </Menu>

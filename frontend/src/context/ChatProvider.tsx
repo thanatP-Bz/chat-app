@@ -9,61 +9,16 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { MessageProps } from "../interface/MessageProps";
-
-export type IUserMember = {
-  _id: string;
-  name: string;
-  email: string;
-  token: string;
-  pic: string;
-  isGroupChat: boolean;
-  chatName: string;
-  isAdmin: boolean;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-};
-
-export type IUser = {
-  _id: string;
-  name: string;
-  pic: string;
-  email: string;
-  token: string;
-  isGroupChat: boolean;
-  chatName: string;
-  isAdmin: boolean;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  users: IUserMember[];
-  groupAdmin: IUserMember;
-  children?: ReactNode;
-};
-
-type IUserChat = {
-  _id: string;
-  name: string;
-  pic: string;
-  email: string;
-  token: string;
-  isGroupChat: boolean;
-  chatName: string;
-  isAdmin: boolean;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
-  users: IUserMember[];
-  groupAdmin: IUserMember;
-};
+import { IUserProps } from "../interface/IUserProps";
+import { IUserChatProps } from "../interface/IUserChatProps";
 
 interface UserContextInterface {
-  user: IUser;
-  setUser: Dispatch<SetStateAction<IUser>>;
-  selectedChat: "" | IUser;
-  setSelectedChat: Dispatch<SetStateAction<"" | IUser>>;
-  chats: IUserChat[];
-  setChats: Dispatch<SetStateAction<IUserChat[]>>;
+  user: IUserProps;
+  setUser: Dispatch<SetStateAction<IUserProps>>;
+  selectedChat: "" | IUserProps;
+  setSelectedChat: Dispatch<SetStateAction<"" | IUserProps>>;
+  chats: IUserChatProps[];
+  setChats: Dispatch<SetStateAction<IUserChatProps[]>>;
   notification: MessageProps[];
   setNotification: Dispatch<SetStateAction<MessageProps[]>>;
 }
@@ -87,7 +42,7 @@ type ChildrenProp = {
 };
 
 const ChatProvider = ({ children }: ChildrenProp) => {
-  const [user, setUser] = useState<IUser>({
+  const [user, setUser] = useState<IUserProps>({
     _id: "",
     name: "",
     pic: "",
@@ -113,9 +68,22 @@ const ChatProvider = ({ children }: ChildrenProp) => {
       updatedAt: "",
       __v: 0,
     },
+    sender: {
+      _id: "",
+      name: "",
+      pic: "",
+    },
+    content: "",
+    chat: {
+      _id: "",
+      chatName: "",
+      isGroupChat: false,
+      createAt: "",
+      updatedAt: "",
+    },
   });
-  const [selectedChat, setSelectedChat] = useState<"" | IUser>("");
-  const [chats, setChats] = useState<IUserChat[]>([]);
+  const [selectedChat, setSelectedChat] = useState<"" | IUserProps>("");
+  const [chats, setChats] = useState<IUserChatProps[]>([]);
   const [notification, setNotification] = useState<MessageProps[]>([]);
 
   const navigate = useNavigate();
