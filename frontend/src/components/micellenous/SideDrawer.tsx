@@ -30,6 +30,7 @@ import ChatLoading from "../ChatLoading";
 import UserListItem from "../User Avatars/UserListItem";
 import { UserProps } from "../../interface/UserProps";
 import { getSender } from "../../config/ChatLogics";
+import { IUserProps } from "../../interface/IUserProps";
 
 const SideDrawer = () => {
   const [search, setSearch] = useState<string>("");
@@ -166,15 +167,61 @@ const SideDrawer = () => {
             <MenuButton p={1}>
               <BellIcon fontSize="2xl" m={1} />
               <MenuList pl={2}>
-                {/*                {!notification.length && "No New Messages"} */}
+                {!notification.length && "No New Messages"}
 
                 {notification.map((notif) => (
                   <MenuItem
                     key={notif._id}
-                    onClick={() => {
-                      setSelectedChat(notif.chat);
+                    /*  onClick={() => {
+                      // Create a new object with properties from notif.chat
+                      const selectedChatObject: IUserProps = {
+                        _id: notif.chat._id,
+                        name: "", // Set appropriate values based on your application logic
+                        pic: "",
+                        email: "",
+                        token: "",
+                        isGroupChat: notif.chat.isGroupChat,
+                        chatName: notif.chat.chatName,
+                        isAdmin: false, // Set appropriate values based on your application logic
+                        createdAt: notif.chat.createAt,
+                        updatedAt: notif.chat.updatedAt,
+                        __v: 0, // Set appropriate values based on your application logic
+                        sender: {
+                          _id: "", // Set appropriate values based on your application logic
+                          name: "",
+                          pic: "",
+                        },
+                        content: "", // Set appropriate values based on your application logic
+                        chat: {
+                          _id: notif.chat._id,
+                          chatName: notif.chat.chatName,
+                          isGroupChat: notif.chat.isGroupChat,
+                          createAt: notif.chat.createAt,
+                          updatedAt: notif.chat.updatedAt,
+                          users: notif.chat.users,
+                        },
+                        users: notif.chat.users, // Set appropriate values based on your application logic
+                        groupAdmin: {
+                          _id: "", // Set appropriate values based on your application logic
+                          name: "",
+                          email: "",
+                          token: "",
+                          pic: "",
+                          isGroupChat: false, // Set appropriate values based on your application logic
+                          chatName: "",
+                          isAdmin: false, // Set appropriate values based on your application logic
+                          createdAt: "",
+                          updatedAt: "",
+                          __v: 0, // Set appropriate values based on your application logic
+                        },
+                      };
+
+                      // Set the new object to selectedChat
+                      setSelectedChat(selectedChatObject);
+
+                      // Remove the notification
                       setNotification(notification.filter((n) => n !== notif));
-                    }}
+                    }} */
                   >
                     {notif.chat.isGroupChat
                       ? `New Message in ${notif.chat.chatName}`

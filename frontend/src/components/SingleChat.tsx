@@ -9,7 +9,6 @@ import { getSender, getSenderFull } from "../config/ChatLogics";
 import ProfileModal from "./micellenous/ProfileModal";
 import UpdateGroupChatModal from "./micellenous/UpdateGroupChatModal";
 import { FormControl, Input, Spinner, useToast } from "@chakra-ui/react";
-import { MessageProps } from "../interface/MessageProps";
 import animationData from "../components/animation/animation.json";
 import "../index.css";
 import ScrollableChat from "./ScrollableChat";
@@ -25,7 +24,7 @@ interface FetchProps {
 }
 
 const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
-  const [messages, setMessages] = useState<MessageProps[]>([]);
+  const [messages, setMessages] = useState<IUserProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState<string>("");
   const [socketConnected, setSocketConnected] = useState(false);
@@ -86,7 +85,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    socket.on("message recieved", (newMessageRecieved: MessageProps) => {
+    socket.on("message recieved", (newMessageRecieved: IUserProps) => {
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== newMessageRecieved.chat._id
@@ -94,10 +93,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
         if (!notification.includes(newMessageRecieved)) {
           setNotification([newMessageRecieved, ...notification]);
           setFetchAgain(!fetchAgain);
-          console.log("notification alert!");
+          console.log("notification alert!", notification);
         }
       } else {
         setMessages([...messages, newMessageRecieved]);
+        console.log("new message", newMessage);
       }
     });
   });
