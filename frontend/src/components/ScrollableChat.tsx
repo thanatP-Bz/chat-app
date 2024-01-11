@@ -7,10 +7,11 @@ import {
   isSameUser,
 } from "../config/ChatLogics";
 import { ChatState } from "../context/ChatProvider";
-import { IUserProps } from "../interface/IUserProps";
+
+import { MessageProps } from "../interface/MessageProps";
 
 interface IMessagesProps {
-  messages: IUserProps[];
+  messages: MessageProps[];
 }
 
 const ScrollableChat = ({ messages }: IMessagesProps) => {

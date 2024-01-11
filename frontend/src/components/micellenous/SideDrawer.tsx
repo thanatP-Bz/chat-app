@@ -169,10 +169,10 @@ const SideDrawer = () => {
               <MenuList pl={2}>
                 {!notification.length && "No New Messages"}
 
-                {notification.map((notif) => (
+                {/* {notification.map((notif) => (
                   <MenuItem
                     key={notif._id}
-                    /*  onClick={() => {
+                     onClick={() => {
                       // Create a new object with properties from notif.chat
                       const selectedChatObject: IUserProps = {
                         _id: notif.chat._id,
@@ -221,13 +221,13 @@ const SideDrawer = () => {
 
                       // Remove the notification
                       setNotification(notification.filter((n) => n !== notif));
-                    }} */
+                    }}
                   >
                     {notif.chat.isGroupChat
                       ? `New Message in ${notif.chat.chatName}`
                       : `New Message from ${getSender(user, notif.chat.users)}`}
                   </MenuItem>
-                ))}
+                ))} */}
               </MenuList>
             </MenuButton>
           </Menu>
