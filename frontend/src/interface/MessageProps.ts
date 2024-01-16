@@ -1,9 +1,4 @@
-interface UsersProps {
-  _id: string;
-  name: string;
-  email: string;
-  pic: string;
-}
+import { IUserProps } from "./IUserProps";
 
 export interface MessageProps {
   sender: {
@@ -15,8 +10,8 @@ export interface MessageProps {
   chat: {
     _id: string;
     chatName: string;
-    isGroupChat: boolean;
-    users: UsersProps[];
+    isGroupChat: false;
+    users: IUserProps[];
     createdAt: string;
     updatedAt: string;
     __v: number;

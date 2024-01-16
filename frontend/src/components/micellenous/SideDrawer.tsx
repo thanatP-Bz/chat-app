@@ -166,70 +166,70 @@ const SideDrawer = () => {
           <Menu>
             <MenuButton p={1}>
               <BellIcon fontSize="2xl" m={1} />
-              <MenuList pl={2}>
-                {!notification.length && "No New Messages"}
+            </MenuButton>
+            <MenuList pl={2}>
+              {!notification.length && "No New Message"}
 
-                {/* {notification.map((notif) => (
-                  <MenuItem
-                    key={notif._id}
-                     onClick={() => {
-                      // Create a new object with properties from notif.chat
-                      const selectedChatObject: IUserProps = {
+              {notification.map((notif) => (
+                <MenuItem
+                  key={notif._id}
+                  onClick={() => {
+                    const selectedChatObject: IUserProps = {
+                      _id: notif.chat._id,
+                      name: "", // Set appropriate values based on your application logic
+                      pic: "",
+                      email: "",
+                      token: "",
+                      isGroupChat: notif.chat.isGroupChat,
+                      chatName: notif.chat.chatName,
+                      isAdmin: false, // Set appropriate values based on your application logic
+                      createdAt: notif.chat.createdAt,
+                      updatedAt: notif.chat.updatedAt,
+                      __v: 0, // Set appropriate values based on your application logic
+                      sender: {
+                        _id: notif.sender._id, // Set appropriate values based on your logic
+                        name: notif.sender.name,
+                        pic: notif.sender.pic,
+                      },
+                      content: "", // Set appropriate values based on your application logic
+                      chat: {
                         _id: notif.chat._id,
-                        name: "", // Set appropriate values based on your application logic
-                        pic: "",
+                        chatName: notif.chat.chatName,
+                        isGroupChat: notif.chat.isGroupChat,
+                        createdAt: notif.chat.createdAt,
+                        updatedAt: notif.chat.updatedAt,
+                        users: [],
+                        __v: 0,
+                        latestMessage: "",
+                      },
+                      users: [], // Include the 'users' property with appropriate values
+                      groupAdmin: {
+                        _id: "", // Set appropriate values based on your application logic
+                        name: "",
                         email: "",
                         token: "",
-                        isGroupChat: notif.chat.isGroupChat,
-                        chatName: notif.chat.chatName,
+                        pic: "",
+                        isGroupChat: false, // Set appropriate values based on your application logic
+                        chatName: "",
                         isAdmin: false, // Set appropriate values based on your application logic
-                        createdAt: notif.chat.createAt,
-                        updatedAt: notif.chat.updatedAt,
+                        createdAt: "",
+                        updatedAt: "",
                         __v: 0, // Set appropriate values based on your application logic
-                        sender: {
-                          _id: "", // Set appropriate values based on your application logic
-                          name: "",
-                          pic: "",
-                        },
-                        content: "", // Set appropriate values based on your application logic
-                        chat: {
-                          _id: notif.chat._id,
-                          chatName: notif.chat.chatName,
-                          isGroupChat: notif.chat.isGroupChat,
-                          createAt: notif.chat.createAt,
-                          updatedAt: notif.chat.updatedAt,
-                          users: notif.chat.users,
-                        },
-                        users: notif.chat.users, // Set appropriate values based on your application logic
-                        groupAdmin: {
-                          _id: "", // Set appropriate values based on your application logic
-                          name: "",
-                          email: "",
-                          token: "",
-                          pic: "",
-                          isGroupChat: false, // Set appropriate values based on your application logic
-                          chatName: "",
-                          isAdmin: false, // Set appropriate values based on your application logic
-                          createdAt: "",
-                          updatedAt: "",
-                          __v: 0, // Set appropriate values based on your application logic
-                        },
-                      };
+                      },
+                    };
+                    // Set the new object to selectedChat
+                    setSelectedChat(selectedChatObject);
 
-                      // Set the new object to selectedChat
-                      setSelectedChat(selectedChatObject);
-
-                      // Remove the notification
-                      setNotification(notification.filter((n) => n !== notif));
-                    }}
-                  >
-                    {notif.chat.isGroupChat
-                      ? `New Message in ${notif.chat.chatName}`
-                      : `New Message from ${getSender(user, notif.chat.users)}`}
-                  </MenuItem>
-                ))} */}
-              </MenuList>
-            </MenuButton>
+                    // Remove the notification
+                    setNotification(notification.filter((n) => n !== notif));
+                  }}
+                >
+                  {/*   {notif.chat.isGroupChat
+                    ? `New Message in ${notif.chat.chatName}`
+                    : `New Message From ${getSender(user, notif.chat.users)}`} */}
+                </MenuItem>
+              ))}
+            </MenuList>
           </Menu>
           <Menu>
             <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>

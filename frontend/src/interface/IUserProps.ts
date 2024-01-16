@@ -36,9 +36,11 @@ export interface IUserProps {
     _id: string;
     chatName: string;
     isGroupChat: boolean;
-    createAt: string;
-    updatedAt: string;
     users: IUserMember[];
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+    latestMessage: string;
   };
   users: IUserMember[];
   groupAdmin: IUserMember;

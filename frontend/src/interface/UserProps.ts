@@ -1,3 +1,5 @@
+import { IUserMember } from "./IUserProps";
+
 export interface UserProps {
   _id: string;
   name: string;
@@ -7,4 +9,14 @@ export interface UserProps {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  chat: {
+    _id: string;
+    chatName: string;
+    isGroupChat: boolean;
+    users: IUserMember[];
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+    latestMessage: string;
+  };
 }

@@ -78,9 +78,11 @@ const ChatProvider = ({ children }: ChildrenProp) => {
       _id: "",
       chatName: "",
       isGroupChat: false,
-      createAt: "",
+      createdAt: "",
       updatedAt: "",
       users: [],
+      __v: 0,
+      latestMessage: "",
     },
   });
   const [notification, setNotification] = useState<MessageProps[]>([

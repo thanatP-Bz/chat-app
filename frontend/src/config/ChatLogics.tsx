@@ -1,5 +1,6 @@
 import { UserProps } from "../interface/UserProps";
 import { MessageProps } from "../interface/MessageProps";
+import { IUserProps } from "../interface/IUserProps";
 
 export const isSameSenderMargin = (
   messages: MessageProps[],
@@ -34,8 +35,14 @@ export const isSameUser = (
 };
 
 /* get sender */
-export const getSender = (loggedUser: UserProps, users: UserProps[]) => {
-  return users[0]?._id === loggedUser?._id ? users[1].name : users[0].name;
+export const getSender = (loggedUser: IUserProps, users: IUserProps[]) => {
+  if (users.length >= 2) {
+    if (users[0]?._id === loggedUser?._id) {
+      return users[1]?.name || "Unknown Sender";
+    } else {
+      return users[0]?.name || "Unknown Sender";
+    }
+  }
 };
 
 export const getSenderFull = (loggedUser: UserProps, users: UserProps[]) => {

@@ -98,7 +98,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     fetchMessages();
@@ -109,19 +109,17 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    socket.on("message recieved", (newMessageRecieved: MessageProps) => {
+    socket.on("message recieved", (newMessageReceived: MessageProps) => {
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
-        selectedChatCompare._id !== newMessageRecieved.chat._id
+        selectedChatCompare._id !== newMessageReceived.chat._id
       ) {
-        if (!notification.includes(newMessageRecieved)) {
-          console.log("notification alert!", notification);
-          setNotification([newMessageRecieved, ...notification]);
+        if (!notification.includes(newMessageReceived)) {
+          setNotification([newMessageReceived, ...notification]);
           setFetchAgain(!fetchAgain);
         }
       } else {
-        console.log("new message", messages);
-        setMessages([...messages, newMessageRecieved]);
+        setMessages([...messages, newMessageReceived]);
       }
     });
   });
@@ -129,7 +127,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
   const sendMessage = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     socket.emit("stop typing", selectedChat && selectedChat._id);
     if (e.key === "Enter" && newMessage) {
-      /*  socket.emit("stop typing", selectedChat._id); */
       try {
         const config = {
           headers: {
@@ -142,7 +139,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
           "http://localhost:5000/api/message",
           {
             content: newMessage,
-            chatId: selectedChat && selectedChat,
+            chatId: selectedChat,
           },
           config
         );
@@ -209,13 +206,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
             />
             {!selectedChat.isGroupChat ? (
               <>
-                {getSender(user, selectedChat.users)}
-                <ProfileModal user={getSenderFull(user, selectedChat.users)} />
+                {getSender(user, [selectedChat])}
+                <ProfileModal user={getSenderFull(user, [selectedChat])} />
               </>
             ) : (
               <>
                 {selectedChat.chatName.toUpperCase()}
-
                 {
                   <UpdateGroupChatModal
                     fetchAgain={fetchAgain}
