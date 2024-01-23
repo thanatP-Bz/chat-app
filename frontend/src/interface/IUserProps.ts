@@ -36,13 +36,27 @@ export interface IUserProps {
     _id: string;
     chatName: string;
     isGroupChat: boolean;
-    users: IUserMember[];
+    users: [
+      {
+        _id: string;
+        name: string;
+        email: string;
+        token: string;
+        pic: string;
+        isGroupChat: boolean;
+        chatName: string;
+        isAdmin: boolean;
+        createdAt: string;
+        updatedAt: string;
+        __v: number;
+      }
+    ];
     createdAt: string;
     updatedAt: string;
     __v: number;
     latestMessage: string;
   };
-  users: IUserMember[];
+  users: [];
   groupAdmin: IUserMember;
   children?: ReactNode;
 }

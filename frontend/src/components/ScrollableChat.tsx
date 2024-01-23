@@ -21,7 +21,7 @@ const ScrollableChat = ({ messages }: IMessagesProps) => {
     <ScrollableFeed>
       {messages &&
         messages.map((currentMessage, i) => (
-          <div style={{ display: "flex" }} key={currentMessage._id}>
+          <div style={{ display: "flex" }} key={`${currentMessage._id}-${i}`}>
             {(isSameSender(messages, currentMessage, i, user._id) ||
               isLastMessage(messages, i, user._id)) && (
               <Tooltip

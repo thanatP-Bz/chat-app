@@ -28,7 +28,6 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 import ChatLoading from "../ChatLoading";
 import UserListItem from "../User Avatars/UserListItem";
-import { UserProps } from "../../interface/UserProps";
 import { getSender } from "../../config/ChatLogics";
 import { IUserProps } from "../../interface/IUserProps";
 
@@ -163,55 +162,11 @@ const SideDrawer = () => {
           Live Chats
         </Text>
         <div>
-          {/*  const selectedChatObject: IUserProps = {
-                      _id: notif.chat._id,
-                      name: "", // Set appropriate values based on your application logic
-                      pic: "",
-                      email: "",
-                      token: "",
-                      isGroupChat: notif.chat.isGroupChat,
-                      chatName: notif.chat.chatName,
-                      isAdmin: false, // Set appropriate values based on your application logic
-                      createdAt: notif.chat.createdAt,
-                      updatedAt: notif.chat.updatedAt,
-                      __v: 0, // Set appropriate values based on your application logic
-                      sender: {
-                        _id: notif.sender._id, // Set appropriate values based on your logic
-                        name: notif.sender.name,
-                        pic: notif.sender.pic,
-                      },
-                      content: "", // Set appropriate values based on your application logic
-                      chat: {
-                        _id: notif.chat._id,
-                        chatName: notif.chat.chatName,
-                        isGroupChat: notif.chat.isGroupChat,
-                        createdAt: notif.chat.createdAt,
-                        updatedAt: notif.chat.updatedAt,
-                        users: [],
-                        __v: 0,
-                        latestMessage: "",
-                      },
-                      users: [], // Include the 'users' property with appropriate values
-                      groupAdmin: {
-                        _id: "", // Set appropriate values based on your application logic
-                        name: "",
-                        email: "",
-                        token: "",
-                        pic: "",
-                        isGroupChat: false, // Set appropriate values based on your application logic
-                        chatName: "",
-                        isAdmin: false, // Set appropriate values based on your application logic
-                        createdAt: "",
-                        updatedAt: "",
-                        __v: 0, // Set appropriate values based on your application logic
-                      },
-                    }; */}
-
           <Menu>
             <MenuButton p={1}>
               <BellIcon fontSize="2xl" m={1} />
             </MenuButton>
-            <MenuList pl={3}>
+            <MenuList pl={2} pr={2}>
               {!notification.length && "No New Message"}
 
               {notification.map((notif) => (
@@ -242,7 +197,21 @@ const SideDrawer = () => {
                         isGroupChat: notif.chat.isGroupChat,
                         createdAt: notif.chat.createdAt,
                         updatedAt: notif.chat.updatedAt,
-                        users: [],
+                        users: [
+                          {
+                            _id: "",
+                            name: "",
+                            email: "",
+                            token: "",
+                            pic: "",
+                            isGroupChat: false,
+                            chatName: "",
+                            isAdmin: false,
+                            createdAt: "",
+                            updatedAt: "",
+                            __v: 0,
+                          },
+                        ],
                         __v: 0,
                         latestMessage: "",
                       },
@@ -316,7 +285,7 @@ const SideDrawer = () => {
             {loading ? (
               <ChatLoading />
             ) : (
-              searchResult?.map((user: UserProps) => (
+              searchResult?.map((user: IUserProps) => (
                 <UserListItem
                   key={user._id}
                   user={user}

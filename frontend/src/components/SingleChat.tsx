@@ -139,7 +139,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
           "http://localhost:5000/api/message",
           {
             content: newMessage,
-            chatId: selectedChat,
+            chatId: selectedChat && selectedChat._id,
           },
           config
         );
@@ -206,8 +206,8 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
             />
             {!selectedChat.isGroupChat ? (
               <>
-                {getSender(user, [selectedChat])}
-                <ProfileModal user={getSenderFull(user, [selectedChat])} />
+                {getSender(user, selectedChat.users)}
+                <ProfileModal user={getSenderFull(user, selectedChat.users)} />
               </>
             ) : (
               <>

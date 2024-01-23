@@ -7,22 +7,69 @@ import { AddIcon } from "@chakra-ui/icons";
 import ChatLoading from "./ChatLoading";
 import { getSender } from "../config/ChatLogics";
 import GroupChatModal from "./micellenous/GroupChatModal";
-import { UserProps } from "../interface/UserProps";
+import { IUserProps } from "../interface/IUserProps";
 
 interface FetchProps {
   fetchAgain: boolean;
 }
 
 const MyChats = ({ fetchAgain }: FetchProps) => {
-  const [loggedUser, setLoggedUser] = useState<UserProps>({
+  const [loggedUser, setLoggedUser] = useState<IUserProps>({
     _id: "",
     name: "",
-    email: "",
     pic: "",
+    email: "",
+    token: "",
+    isGroupChat: false,
+    chatName: "",
     isAdmin: false,
     createdAt: "",
     updatedAt: "",
     __v: 0,
+    users: [],
+    groupAdmin: {
+      _id: "",
+      name: "",
+      pic: "",
+      email: "",
+      token: "",
+      isGroupChat: false,
+      chatName: "",
+      isAdmin: false,
+      createdAt: "",
+      updatedAt: "",
+      __v: 0,
+    },
+    sender: {
+      _id: "",
+      name: "",
+      pic: "",
+    },
+    content: "",
+    chat: {
+      _id: "",
+      chatName: "",
+      isGroupChat: false,
+      createdAt: "",
+      updatedAt: "",
+      users: [
+        {
+          _id: "",
+          name: "",
+          email: "",
+          token: "",
+          pic: "",
+          isGroupChat: false,
+          chatName: "",
+          isAdmin: false,
+          createdAt: "",
+          updatedAt: "",
+          __v: 0,
+        },
+      ],
+      __v: 0,
+      latestMessage: "",
+    },
   });
   const { user, selectedChat, setSelectedChat, chats, setChats } = ChatState();
   const toast = useToast();

@@ -55,6 +55,7 @@ export const isSameSender = (
   i: number,
   userId: string
 ) => {
+  console.log(currentMessage.sender._id);
   return (
     i < messages.length - 1 &&
     (messages[i + 1].sender._id !== currentMessage.sender._id ||

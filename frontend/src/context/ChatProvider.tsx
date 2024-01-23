@@ -9,7 +9,6 @@ import {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { IUserProps } from "../interface/IUserProps";
-import { IUserChatProps } from "../interface/IUserChatProps";
 import { MessageProps } from "../interface/MessageProps";
 
 interface UserContextInterface {
@@ -17,8 +16,8 @@ interface UserContextInterface {
   setUser: Dispatch<SetStateAction<IUserProps>>;
   selectedChat: "" | IUserProps;
   setSelectedChat: Dispatch<SetStateAction<"" | IUserProps>>;
-  chats: IUserChatProps[];
-  setChats: Dispatch<SetStateAction<IUserChatProps[]>>;
+  chats: IUserProps[];
+  setChats: Dispatch<SetStateAction<IUserProps[]>>;
   notification: MessageProps[];
   setNotification: Dispatch<SetStateAction<MessageProps[]>>;
 }
@@ -80,7 +79,21 @@ const ChatProvider = ({ children }: ChildrenProp) => {
       isGroupChat: false,
       createdAt: "",
       updatedAt: "",
-      users: [],
+      users: [
+        {
+          _id: "",
+          name: "",
+          email: "",
+          token: "",
+          pic: "",
+          isGroupChat: false,
+          chatName: "",
+          isAdmin: false,
+          createdAt: "",
+          updatedAt: "",
+          __v: 0,
+        },
+      ],
       __v: 0,
       latestMessage: "",
     },
@@ -110,7 +123,7 @@ const ChatProvider = ({ children }: ChildrenProp) => {
     },
   ]);
   const [selectedChat, setSelectedChat] = useState<"" | IUserProps>("");
-  const [chats, setChats] = useState<IUserChatProps[]>([]);
+  const [chats, setChats] = useState<IUserProps[]>([]);
 
   const navigate = useNavigate();
 
