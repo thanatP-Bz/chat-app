@@ -14,7 +14,7 @@ import "../index.css";
 import ScrollableChat from "./ScrollableChat";
 import io, { Socket } from "socket.io-client";
 import Lottie from "lottie-react";
-import { MessageProps } from "../interface/MessageProps";
+
 const ENDPOINT = "http://localhost:5000"; // "https://talk-a-tive.herokuapp.com"; -> After deployment
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 let socket: Socket, selectedChatCompare: "" | IUserProps;
@@ -25,30 +25,7 @@ interface FetchProps {
 }
 
 const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
-  const [messages, setMessages] = useState<MessageProps[]>([
-    {
-      sender: {
-        name: "",
-        _id: "",
-        pic: "",
-      },
-      content: "",
-      chat: {
-        _id: "",
-        chatName: "",
-        isGroupChat: false,
-        users: [],
-        createdAt: "",
-        updatedAt: "",
-        __v: 0,
-        latestMessage: "",
-      },
-      _id: "",
-      createdAt: "",
-      updatedAt: "",
-      __v: 0,
-    },
-  ]);
+  const [messages, setMessages] = useState<IUserProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [newMessage, setNewMessage] = useState<string>("");
   const [socketConnected, setSocketConnected] = useState(false);
@@ -109,7 +86,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }: FetchProps) => {
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    socket.on("message recieved", (newMessageReceived: MessageProps) => {
+    socket.on("message recieved", (newMessageReceived: IUserProps) => {
       if (
         !selectedChatCompare || // if chat is not selected or doesn't match current chat
         selectedChatCompare._id !== newMessageReceived.chat._id

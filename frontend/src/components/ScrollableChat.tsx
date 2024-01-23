@@ -8,10 +8,10 @@ import {
 } from "../config/ChatLogics";
 import { ChatState } from "../context/ChatProvider";
 
-import { MessageProps } from "../interface/MessageProps";
+import { IUserProps } from "../interface/IUserProps";
 
 interface IMessagesProps {
-  messages: MessageProps[];
+  messages: IUserProps[];
 }
 
 const ScrollableChat = ({ messages }: IMessagesProps) => {

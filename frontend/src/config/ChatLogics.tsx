@@ -1,10 +1,9 @@
 import { UserProps } from "../interface/UserProps";
-import { MessageProps } from "../interface/MessageProps";
 import { IUserProps } from "../interface/IUserProps";
 
 export const isSameSenderMargin = (
-  messages: MessageProps[],
-  currentMessage: MessageProps,
+  messages: IUserProps[],
+  currentMessage: IUserProps,
   i: number,
   userId: string
 ) => {
@@ -27,8 +26,8 @@ export const isSameSenderMargin = (
 };
 
 export const isSameUser = (
-  messages: MessageProps[],
-  currentMessage: MessageProps,
+  messages: IUserProps[],
+  currentMessage: IUserProps,
   i: number
 ) => {
   return i > 0 && messages[i - 1].sender._id === currentMessage.sender._id;
@@ -50,8 +49,8 @@ export const getSenderFull = (loggedUser: UserProps, users: UserProps[]) => {
 };
 
 export const isSameSender = (
-  messages: MessageProps[],
-  currentMessage: MessageProps,
+  messages: IUserProps[],
+  currentMessage: IUserProps,
   i: number,
   userId: string
 ) => {
@@ -65,7 +64,7 @@ export const isSameSender = (
 };
 
 export const isLastMessage = (
-  messages: MessageProps[],
+  messages: IUserProps[],
   i: number,
   userId: string
 ) => {

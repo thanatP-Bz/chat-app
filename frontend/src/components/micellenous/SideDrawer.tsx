@@ -175,7 +175,7 @@ const SideDrawer = () => {
                   onClick={() => {
                     const selectedChatObject: IUserProps = {
                       _id: notif.chat._id,
-                      name: "", // Set appropriate values based on your application logic
+                      name: notif.sender?.name || "", // Set appropriate values based on your application logic
                       pic: "",
                       email: "",
                       token: "",
@@ -239,9 +239,7 @@ const SideDrawer = () => {
                 >
                   {notif.chat.isGroupChat
                     ? `New Message in ${notif.chat.chatName}`
-                    : notif.chat.users.length > 0
-                    ? `New Message From ${getSender(user, notif.chat.users)}`
-                    : "No New Message"}
+                    : `New Message From ${getSender(user, notif.chat.users)}`}
                 </MenuItem>
               ))}
             </MenuList>
